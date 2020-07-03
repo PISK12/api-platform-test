@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  database:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+
+  server:
+    build:
+      context: docker/server
+      args:
+        APP_ENV: ${APP_ENV}
+    volumes:
+      - .:/app
+    ports:
+      - "80:80"
+    depends_on:
+      - database
