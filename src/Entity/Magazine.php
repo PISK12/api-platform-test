@@ -22,12 +22,12 @@ class Magazine
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("magazine:read")
+     * @Groups({"magazine:read","category:read","post:read"})
      */
     private ?int $id;
 
     /**
-     * @Groups("magazine:read")
+     * @Groups({"magazine:read","category:read","post:read"})
      * @ORM\Column(type="string", length=255)
      */
     private ?string $name;

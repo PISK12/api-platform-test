@@ -9,13 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"post:read"}},
+ *     denormalizationContext={"groups"={"post:write"}}
+ * )
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
 class Post
 {
     /**
-     * @Groups("magazine:read")
+     * @Groups({"magazine:read","category:read","post:read"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,18 +26,19 @@ class Post
     private ?int $id;
 
     /**
-     * @Groups("magazine:read")
+     * @Groups({"magazine:read","category:read","post:read"})
      * @ORM\Column(type="string", length=255)
      */
     private ?string $title;
 
     /**
-     * @Groups("magazine:read")
+     * @Groups({"magazine:read","category:read","post:read"})
      * @ORM\Column(type="text")
      */
     private ?string $text;
 
     /**
+     * @Groups({"post:read"})
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      * @var Collection | Category
