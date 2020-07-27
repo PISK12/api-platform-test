@@ -33,7 +33,7 @@ class Category
 	private ?string $name;
 
 	/**
-	 * @Groups({"magazine:read","category:read","post:read"})
+	 * @Groups({"category:read","post:read"})
 	 * @ORM\ManyToOne(targetEntity=Magazine::class, inversedBy="categories")
 	 */
 	private ?Magazine $magazine;
